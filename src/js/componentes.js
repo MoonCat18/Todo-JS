@@ -49,7 +49,7 @@ divTodoList.addEventListener('click', (event) => {
         todoList.marcarCompletado(todoId);
         todoElemento.classList.toggle('completed');
 
-    } else if (nombreElemento.includes('button')) { // hay qye borrar el todo
+    } else if (nombreElemento.includes('button')) { // hay que borrar el todo
         todoList.eliminarTodo(todoId);
         divTodoList.removeChild(todoElemento);
     }
