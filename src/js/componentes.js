@@ -7,6 +7,7 @@ const txtInput = document.querySelector('.new-todo');
 const btnBorrar = document.querySelector('.clear-completed');
 const ulfiltros = document.querySelector('.filters');
 const anchorFiltros = document.querySelectorAll('.filtro');
+const contarPendientes = document.querySelector('.todo-count');
 
 export const crearTodoHtml = (todo) => {
     const htmlTodo = `
@@ -83,6 +84,9 @@ ulfiltros.addEventListener('click', (event) => {
             case 'Pendientes':
                 if (completado) {
                     elemento.classList.add('hidden');
+                    const contador = completado.length;
+                    contarPendientes.innerHTML = contador;
+                    console.log(contador);
                 }
                 break;
 
@@ -90,9 +94,6 @@ ulfiltros.addEventListener('click', (event) => {
                 if (!completado) {
                     elemento.classList.add('hidden');
                 }
-                break;
-
-            default:
                 break;
         }
     }

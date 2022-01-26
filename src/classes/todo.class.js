@@ -14,7 +14,7 @@ export class Todo {
     constructor(tarea) {
         this.tarea = tarea;
 
-        this.id = new Date().getTime();
+        this.id = new Date().getTime(); // 2345689712
         this.completado = false;
         this.creado = new Date();
     }
@@ -22,4 +22,5 @@ export class Todo {
     imprimirClase() {
         console.log(`${this.tarea} - ${this.id}`);
     }
+    
 }

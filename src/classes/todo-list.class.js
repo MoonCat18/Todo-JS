@@ -1,6 +1,7 @@
 import { Todo } from "./todo.class";
 
 export class TodoList {
+
     constructor() {
         // this.todos = [];
         this.cargarLocalStorage();
@@ -43,4 +44,6 @@ export class TodoList {
 
         this.todos = this.todos.map(Todo.fromJson);
     }
+
+    // Crear una función para contar
 }
