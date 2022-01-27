@@ -5,17 +5,18 @@ export class TodoList {
     constructor() {
         // this.todos = [];
         this.cargarLocalStorage();
-
     }
 
     nuevoTodo(todo) {
         this.todos.push(todo);
         this.guardarLocalStorage();
+        this.contarPendientes();
     }
 
     eliminarTodo(id) {
         this.todos = this.todos.filter(todo => todo.id != id);
         this.guardarLocalStorage();
+        this.contarPendientes();
     }
 
     marcarCompletado(id) {
@@ -23,6 +24,7 @@ export class TodoList {
             if (todo.id == id) {
                 todo.completado = !todo.completado;
                 this.guardarLocalStorage();
+                this.contarPendientes();
                 break;
             }
         }
@@ -45,5 +47,15 @@ export class TodoList {
         this.todos = this.todos.map(Todo.fromJson);
     }
 
-    // Crear una función para contar
-}
+    contarPendientes() {
+        let pendientes = 0;       
+        this.todos.forEach((todo) => {
+            if (!todo.completado){
+                pendientes++;
+            }
+        })
+
+        return pendientes;
+    }
+
+};

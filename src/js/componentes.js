@@ -1,5 +1,5 @@
 import { Todo } from "../classes";
-import { todoList, TodoList } from "../index";
+import { todoList} from "../index";
 
 //Referencias en el HTML
 const divTodoList = document.querySelector('.todo-list');
@@ -7,7 +7,7 @@ const txtInput = document.querySelector('.new-todo');
 const btnBorrar = document.querySelector('.clear-completed');
 const ulfiltros = document.querySelector('.filters');
 const anchorFiltros = document.querySelectorAll('.filtro');
-const contarPendientes = document.querySelector('.todo-count');
+const lblPendientes = document.querySelector('.todo-count');
 
 export const crearTodoHtml = (todo) => {
     const htmlTodo = `
@@ -20,6 +20,7 @@ export const crearTodoHtml = (todo) => {
 		<input class="edit" value="Create a TodoMVC template">
 	</li>
     `
+    lblPendientes.innerHTML = `<strong>${todoList.contarPendientes()}</strong> pendiente(s)`;
 
     const div = document.createElement('div');
     div.innerHTML = htmlTodo;
@@ -35,13 +36,16 @@ txtInput.addEventListener('keyup', (event) => {
         console.log(txtInput.value);
         const nuevoTodo = new Todo(txtInput.value);
         todoList.nuevoTodo(nuevoTodo);
+        lblPendientes.innerHTML = `<strong>${todoList.contarPendientes()}</strong> pendiente(s)`;
 
         crearTodoHtml(nuevoTodo);
         txtInput.value = '';
+        
     }
 });
 
 divTodoList.addEventListener('click', (event) => {
+
     const nombreElemento = event.target.localName; //input, label, button
     const todoElemento = event.target.parentElement.parentElement;
     const todoId = todoElemento.getAttribute('data-id');
@@ -49,10 +53,12 @@ divTodoList.addEventListener('click', (event) => {
     if (nombreElemento.includes('input')) {
         todoList.marcarCompletado(todoId);
         todoElemento.classList.toggle('completed');
+        lblPendientes.innerHTML = `<strong>${todoList.contarPendientes()}</strong> pendiente(s)`;
 
     } else if (nombreElemento.includes('button')) { // hay que borrar el todo
         todoList.eliminarTodo(todoId);
         divTodoList.removeChild(todoElemento);
+        lblPendientes.innerHTML = `<strong>${todoList.contarPendientes()}</strong> pendiente(s)`;
     }
 
 });
@@ -84,9 +90,6 @@ ulfiltros.addEventListener('click', (event) => {
             case 'Pendientes':
                 if (completado) {
                     elemento.classList.add('hidden');
-                    const contador = completado.length;
-                    contarPendientes.innerHTML = contador;
-                    console.log(contador);
                 }
                 break;
 
